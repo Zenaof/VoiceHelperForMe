@@ -1,0 +1,24 @@
+{
+  "commands": [
+    {
+      "activation_phrase": "сколько времени",
+      "action": "time",
+      "response": "Текущее время:"
+    },
+    {
+      "activation_phrase": "подожди минутку",
+      "action": "wait",
+      "response": "Жду"
+    },
+    {
+      "activation_phrase": "спой мне песню",
+      "action": "song",
+      "response": "Пою!"
+    },
+    {
+      "activation_phrase": "когда приедет автобус",
+      "action": "transport",
+      "response": "Ближайший:"
+    }
+  ]
+}
