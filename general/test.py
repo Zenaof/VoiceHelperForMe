@@ -1,13 +1,16 @@
 import time
-from num2words import num2words
 # import locDataBase
 # import requests
 # import voice_detection
 # import tts
 # import stt
+import os
+from pathlib import Path
 
+print(os.name)
 
-print(num2words(342, lang='ru'))
+path = Path('new-model', 'vosk-model-ru-0.22')
+print(str(path))
 
 # def key_word_detect():
 #     while True:

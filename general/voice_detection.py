@@ -3,14 +3,19 @@ import sounddevice as sd
 import numpy as np
 import time
 from pvrecorder import PvRecorder
-
+import os
 
 #Настройка Porcupine
 access_key = 'ixVF5hzgPK+0NUVXWFDW1FKDUPsNTjnd7IRg3vtD3Qic1dxz8UQxgQ=='
-keywords_path = '../new-model/picovoice-models/Hey--Yuki_en_linux_v3_0_0/Hey-Yuki-linux.ppn'
+
+if os.name == 'nt':
+    keywords_path = 'new-model/picovoice-models/Hey-Yuki-windows.ppn'
+elif os.name == 'posix':
+    keywords_path = 'new-model/picovoice-models/Hey-Yuki-linux.ppn'
+
 
 porcupine = pvporcupine.create(access_key=access_key, keyword_paths=[keywords_path])
-recorder = PvRecorder(device_index=1, frame_length=porcupine.frame_length)
+recorder = PvRecorder(frame_length=porcupine.frame_length)
 recorder.start()
 print('Используемое устройство: %s' % recorder.selected_device)
 

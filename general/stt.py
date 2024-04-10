@@ -1,20 +1,23 @@
-import pyaudio
+import pathlib
+
 import vosk
-import sys
-import sounddevice as sd
 import queue
 import json
 import pyaudio
-import voice_detection
+from general import voice_detection
+from pathlib import Path
 
-model = vosk.Model(r"../new-model/vosk-model-ru-0.22") # полный путь к модели
+dir_path = pathlib.Path.cwd()
+path = Path(dir_path, 'new-model', 'vosk-model-ru-0.22')
+
+model = vosk.Model(path) # полный путь к модели
 samplerate = 16000
 device = 1
 porcupine = voice_detection.porcupine
 kaldi_rec = vosk.KaldiRecognizer(model, samplerate)
 def Recognition():
     p = pyaudio.PyAudio()
-    stream = p.open(format=pyaudio.paInt16, channels=1, rate=samplerate, input=True, frames_per_buffer=porcupine.frame_length)
+    stream = p.open(format=pyaudio.paInt16, channels=1, rate=samplerate, input=True, frames_per_buffer=voice_detection.porcupine.frame_length)
 
     while True:
         data = stream.read(porcupine.frame_length)
@@ -23,6 +26,8 @@ def Recognition():
             user_speech = result.get('text', '')
             return user_speech
 
+speech = Recognition()
+print(speech)
 
 
 

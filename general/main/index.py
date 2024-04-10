@@ -1,15 +1,12 @@
 import datetime
 import json
 from fuzzywuzzy import fuzz
-import config
-import stt
-import tts
-import time
-import numpy as np
-import voice_detection
+from general import tts
 from num2words import num2words
+from general import voice_detection
+from general import stt
 
-with open('prefabs/commands.json', 'r') as file:
+with open('../commands.json', 'r') as file:
     commands_data = json.load(file)
     commands = commands_data.get('commands', [])
 
