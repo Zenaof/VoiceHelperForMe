@@ -1,6 +1,7 @@
 import time
 import requests
 import torch
+import silero
 import sounddevice as sd
 
 
@@ -41,3 +42,4 @@ def Checking_the_connection(text):
     else:
         print('Подлючение к интернету отсутствует. Запускаю Оффлайн версию синтеза речи')
         Conversator_Offline(text)
+

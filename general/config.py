@@ -1,13 +1,15 @@
-VH_REAL_NAME = ("Юки")
+import pvporcupine
+import voice_detection
+import os
+import pathlib
+from pathlib import Path
 
-VH_VER = "0.1a"
+keywords_path = 'Hey-Yuki-windows.ppn'
+if os.name == 'posix':
+    keywords_path = 'Hey-Yuki-linux.ppn'
 
-VH_NAME = ('юки', "юк", "юкинон", "юкусик")
+dir_path = pathlib.Path.cwd()
+path = Path(dir_path, 'new-model', 'picovoice-models', f'{keywords_path}')
 
-VH_TBR = ("скажи", "ответь", "покажи", "произнеси", "расскажи", "сколько")
-
-VH_CMD_LIST = {
-    "help": ('список команд', 'команды', 'что ты умеешь', 'твои навыки', 'навыки'),
-    "weather": ('погода', "погода на завтра", "данные о погоде", "какая информация о погоде"),
-    "transport": ('траллейбус', "троллейбус", "автобус", "где автобус номер", "где автобус", "где траллейбус", "где траллейбус номер")
-}
+access_key = 'ixVF5hzgPK+0NUVXWFDW1FKDUPsNTjnd7IRg3vtD3Qic1dxz8UQxgQ=='
+porcupine = pvporcupine.create(access_key=access_key, keyword_paths=[fr'{path}'])

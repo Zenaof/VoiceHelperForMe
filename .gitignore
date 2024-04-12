@@ -128,8 +128,8 @@ ENV/
 env.bak/
 venv.bak/
 
-#models
-general/new-model/vosk-model-ru-0.22/
+# models
+general/new-model/vosk-models
 
 # Spyder project settings
 .spyderproject

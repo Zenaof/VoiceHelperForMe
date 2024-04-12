@@ -1,12 +1,17 @@
 import datetime
 import json
 from fuzzywuzzy import fuzz
-from general import tts
+import tts
 from num2words import num2words
-from general import voice_detection
-from general import stt
+import voice_detection
+import stt
+import pathlib
+from pathlib import Path
 
-with open('../commands.json', 'r') as file:
+dir_path = pathlib.Path.cwd()
+path = Path(dir_path, 'commands.json')
+
+with open(fr'{path}', 'r') as file:
     commands_data = json.load(file)
     commands = commands_data.get('commands', [])
 
@@ -28,11 +33,10 @@ def processingCommands(command):
     if command['action'] == 'time':
         now = datetime.datetime.now()
         text = "Сейч+ас " + num2words(now.hour, lang='ru') + " " + num2words(now.minute, lang='ru')
-        response_text = f"{command['response']} {text}"
-
-
-
-    return response_text
+        responce_text = f"{command['response']} {text}"
+    elif command['action'] == 'hello':
+        responce_text = f"{command['response']}"
+    return responce_text
 
 
 

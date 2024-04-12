@@ -19,6 +19,11 @@
       "activation_phrase": "когда приедет автобус",
       "action": "transport",
       "response": "Ближайший:"
+    },
+    {
+      "activation_phrase": "привет",
+      "action": "hello",
+      "response": "Привет дорогой пользователь:"
     }
   ]
 }
