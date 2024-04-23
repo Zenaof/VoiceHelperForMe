@@ -6,6 +6,8 @@ import tts
 # import stt
 import os
 from pathlib import Path
+import torch
+
 
 print(os.name)
 
