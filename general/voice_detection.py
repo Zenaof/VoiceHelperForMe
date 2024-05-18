@@ -3,13 +3,11 @@ import time
 from pvrecorder import PvRecorder
 import os
 from pathlib import Path
-import config
+from configVH import porcupine
 
-recorder = PvRecorder(frame_length=config.porcupine.frame_length)
+recorder = PvRecorder(frame_length=porcupine.frame_length)
 recorder.start()
 print('Используемое устройство: %s' % recorder.selected_device)
-
-porcupine = config.porcupine
 
 def callback(keyWord):
     while True:

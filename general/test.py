@@ -1,18 +1,27 @@
-import time
+# import time
 # import locDataBase
 # import requests
 # import voice_detection
-import tts
-# import stt
-import os
-from pathlib import Path
+# import tts
+# # import stt
+# import os
+# from pathlib import Path
+#
+# print(os.name)
+#
+# path = Path('new-model', 'vosk-model-large')
+# print(str(path))
+#
+# tts.Checking_the_connection('Приветик')
 
-print(os.name)
+def register():
+    name = input("What is your name? ")
+    password = input("What is your password? ")
 
-path = Path('new-model', 'vosk-model-large')
-print(str(path))
 
-tts.Checking_the_connection('Приветик')
+
+
+
 
 # def key_word_detect():
 #     while True:
