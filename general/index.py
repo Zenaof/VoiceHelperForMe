@@ -11,56 +11,73 @@ from pathlib import Path
 dir_path = pathlib.Path.cwd()
 path = Path(dir_path, 'commands.json')
 
-with open(fr'{path}', 'r') as file:
+# Проверка наличия файла
+if not path.exists():
+    print(f"Файл {path} не найден!")
+    exit()
+
+# Открытие файла с указанием кодировки UTF-8
+with open(fr'{path}', 'r', encoding='utf-8') as file:
     commands_data = json.load(file)
     commands = commands_data.get('commands', [])
+    if not commands:
+        print("Команды не найдены в файле commands.json")
+        exit()
 
 def command_filter(user_speech):
+    print(f"Пользователь сказал: {user_speech}")
     best_command = None
     max_ratio = 0
 
     for command in commands:
         activation_phrase = command['activation_phrase']
-        # проверяем сходство того что сказал пользователь и активационной фразы
         ratio = fuzz.ratio(user_speech, activation_phrase)
+        print(f"Сравнение с '{activation_phrase}': {ratio}%")
+
         if ratio > max_ratio:
             max_ratio = ratio
             best_command = command
-        if best_command and max_ratio > 10:
-            return best_command
+
+    if best_command and max_ratio > 10:
+        print(f"Лучшая команда: {best_command['activation_phrase']} с коэффициентом {max_ratio}")
+        return best_command
+    else:
+        print("Команда не найдена или низкий коэффициент сходства.")
+    return None
 
 def processingCommands(command):
     if command['action'] == 'time':
         now = datetime.datetime.now()
         text = "Сейч+ас " + num2words(now.hour, lang='ru') + " " + num2words(now.minute, lang='ru')
-        responce_text = f"{command['response']} {text}"
+        response_text = f"{command['response']} {text}"
     elif command['action'] == 'hello':
-        responce_text = f"{command['response']}"
-    return responce_text
-
-
-
+        response_text = f"{command['response']}"
+    else:
+        response_text = "Неизвестная команда"
+    return response_text
 
 def listen_and_responce():
     print('Слушаю...')
     while True:
         speech = stt.Recognition()
-        print(speech)
+        print(f"Распознанная речь: {speech}")
 
         command = command_filter(speech)
         if command:
+            print(f"Найденная команда: {command}")
             response = processingCommands(command)
+            print(f"Ответ: {response}")
             tts.Checking_the_connection(response)
             key_word_detect()
-
-
+        else:
+            print("Команда не найдена.")
 
 def key_word_detect():
     print('VH Слушает...')
     while True:
         keyWord = voice_detection.callback(False)
-        if keyWord == True:
-            print('ключевое слово сработало!!!')
+        if keyWord:
+            print('Ключевое слово сработало!!!')
             listen_and_responce()
 
 key_word_detect()
