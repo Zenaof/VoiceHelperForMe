@@ -7,9 +7,10 @@ import voice_detection
 import stt
 import pathlib
 from pathlib import Path
+import torch
 
 dir_path = pathlib.Path.cwd()
-path = Path(dir_path, 'commands.json')
+path = Path(dir_path, 'json_files', 'commands.json')
 
 # Проверка наличия файла
 if not path.exists():
@@ -23,6 +24,10 @@ with open(fr'{path}', 'r', encoding='utf-8') as file:
     if not commands:
         print("Команды не найдены в файле commands.json")
         exit()
+
+
+
+
 
 def command_filter(user_speech):
     print(f"Пользователь сказал: {user_speech}")
@@ -80,7 +85,22 @@ def key_word_detect():
             print('Ключевое слово сработало!!!')
             listen_and_responce()
 
-key_word_detect()
+def loadind_models():
+    # Загрузка модели Vosk
+    stt.load_model()
+
+    # Загрузка модели Silero
+    language = 'ru'
+    model_id = 'v4_ru'
+    device = torch.device('cpu')  # Используем CPU для загрузки модели
+    model, example_text = torch.hub.load(repo_or_dir='snakers4/silero-models',
+                                         model='silero_tts',
+                                         language=language,
+                                         speaker=model_id)
+    model.to(device)
+    key_word_detect()
+
+loadind_models()
 
 
 

@@ -18,12 +18,22 @@
     {
       "activation_phrase": "когда приедет автобус",
       "action": "transport",
-      "response": "Ближайший:"
+      "response": "Ближайший"
     },
     {
       "activation_phrase": "привет",
       "action": "hello",
-      "response": "Привет дорогой пользователь:"
+      "response": "Привет дорогой пользователь"
+    },
+    {
+      "activation_phrase": "открой",
+      "action": "open",
+      "response": "открываю приложение:"
+    },
+    {
+      "activation_phrase": "режим разработки на питон",
+      "action": "dev_mode",
+      "response": "открываю режим разработки на питон"
     }
   ]
 }
